@@ -79,3 +79,13 @@ def deleteauthor(request):
         models.authorinfo.objects.get(aid=request.GET['aid']).delete()
         return redirect('/authorslist/')
     return HttpResponse('Noting for Delete!')
+
+def editauthor(request):
+    if request.method == 'POST':
+        authorobject = models.authorinfo.objects.get(aid=request.POST['authornid'])
+        authorobject.author_book_publish.set(request.POST.getlist('booksselect'))
+        authorobject.save()
+        return redirect('/authorslist/')
+    authorselect = models.authorinfo.objects.get(aid=request.GET['aid'])
+    bookslist = models.bookinfo.objects.all()
+    return render(request,'editauthor.html',{'authorselect':authorselect,'bookslist':bookslist})

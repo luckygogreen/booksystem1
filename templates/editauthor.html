@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/editauthor/">Add Author</a>
+{% endblock %}
+{% block pageinfomation %}
+    <div class="main-wthree">
+        <div class="container">
+            <div class="sin-w3-agile">
+                <form action="/editauthor/" method="post" name="editauthorform">{% csrf_token %}
+                    <div class="username">
+                        <span class="username">Author Name:</span>
+                        <input type="text" name="authornid" value="{{ authorselect.aid }}" style="display: none">
+                        <input type="text" name="authorname" class="name" value="{{ authorselect.aname }}" >
+                        <div class="clearfix"></div>
+                    <span class="username">Books list:</span>
+                        <select multiple class="multifilter"  style="background-color: #F3F3F5;" name="booksselect">
+                            {% for book in bookslist %}
+                                {% if book in authorselect.author_book_publish.all %}
+                                    <option selected value="{{ book.bid }}">{{ book.bname }}</option>
+                                {% else %}
+                                    <option value="{{ book.bid }}">{{ book.bname }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="login-w3">
+                        <input type="submit" class="login" value="update" name="editauthorsubmit">
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -14,10 +14,8 @@
                         <span class="username">Author Name:</span>
                         <input type="text" name="authorname" class="name" placeholder="Author Name" required="">
                         <div class="clearfix"></div>
-                    </div>
                     <span class="username">Books list:</span>
-                    <div class="col-sm-8">
-                        <select multiple class="form-control1" style="background-color: #F3F3F5;" name="booksselect">
+                        <select multiple class="multifilter"  style="background-color: #F3F3F5;" name="booksselect">
                             {% for book in bookslist %}
                                 <option value="{{ book.bid }}">{{ book.bname }}</option>
                             {% endfor %}
