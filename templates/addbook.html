@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/addbook/">Add book</a>
+{% endblock %}
+{% block addbook_active %}
+    class="active"
+{% endblock %}
+{% block pageinfomation %}
+<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<form action="/addbook/" method="post" name="addbookform">{% csrf_token %}
+            <select name="publisherselect" id="selector1" class="dropdown-toggle">
+                {% for publisher in publisherlist %}
+                    <option value="{{ publisher.pid }}">{{ publisher.pname }}</option>
+                {% endfor %}
+            </select>
+			<div class="username">
+				<span class="username">Book Name:</span>
+				<input type="text" name="bookname" class="name" placeholder="Book Name" required="">
+				<div class="clearfix"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Save" name="addbooksubmit">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}

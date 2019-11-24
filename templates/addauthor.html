@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/addauthor/">Add Author</a>
+{% endblock %}
+{% block addauthor_active %}
+    class="active"
+{% endblock %}
+{% block pageinfomation %}
+    <div class="main-wthree">
+        <div class="container">
+            <div class="sin-w3-agile">
+                <form action="/addauthor/" method="post" name="addauthorform">{% csrf_token %}
+                    <div class="username">
+                        <span class="username">Author Name:</span>
+                        <input type="text" name="authorname" class="name" placeholder="Author Name" required="">
+                        <div class="clearfix"></div>
+                    </div>
+                    <span class="username">Books list:</span>
+                    <div class="col-sm-8">
+                        <select multiple class="form-control1" style="background-color: #F3F3F5;" name="booksselect">
+                            {% for book in bookslist %}
+                                <option value="{{ book.bid }}">{{ book.bname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="login-w3">
+                        <input type="submit" class="login" value="Save" name="addauthorsubmit">
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

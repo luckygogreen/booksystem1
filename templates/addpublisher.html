@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/addpublisher/">Add publisher</a>
+{% endblock %}
+{% block addpublisher_active %}
+    class="active"
+{% endblock %}
+{% block pageinfomation %}
+<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<form action="/addpublisher/" method="post" name="addpublisherform">{% csrf_token %}
+			<div class="username">
+				<span class="username">Publisher Name:</span>
+				<input type="text" name="publishname" class="name" placeholder="Publish Name" required="">
+				<div class="clearfix"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Save" name="addpublishersubmit">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}

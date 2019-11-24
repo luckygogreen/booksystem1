@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/addbook/">Edit book</a>
+{% endblock %}
+{% block pageinfomation %}
+<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<form action="/editbook/" method="post" name="editbookform">{% csrf_token %}
+            <select name="publisherselect" id="selector1" class="dropdown-toggle">
+                {% for publisher in publishlist %}
+                    {% if bookselect.book_pubish_id == publisher.pid %}
+                        <option selected value="{{ publisher.pid }}">{{ publisher.pname }}</option>
+                    {% else %}
+                        <option value="{{ publisher.pid }}">{{ publisher.pname }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+			<div class="username">
+				<span class="username">Book Name:</span>
+                <input type="text" name="bookid" value="{{ bookselect.bid }}" style="display: none">
+				<input type="text" name="bookname" class="name" value="{{ bookselect.bname }}">
+				<div class="clearfix"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Update" name="addbooksubmit">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block navgation_bar %}
+    <a href="/addpublisher/">Edit publisher</a>
+{% endblock %}
+{% block pageinfomation %}
+<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<form action="/editpublisher/" method="post" name="editpublisherform">{% csrf_token %}
+			<div class="username">
+				<span class="username">Publisher Name:</span>
+                <input type="text" name="editpublishid" value="{{ editpublisher.pid }}" style="display: none">
+				<input type="text" name="editpublishname" class="name" value="{{ editpublisher.pname }}">
+				<div class="clearfix"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Update" name="editpublishersubmit">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}
