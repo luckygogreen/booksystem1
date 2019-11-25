@@ -1,9 +1,20 @@
 from django.shortcuts import render,HttpResponse,redirect
 from bookAPP import models
+from django.urls import reverse
 # Create your views here.
 #测试页面调用的方法
 def test(request):
     return render(request,'test.html')
+#定义一个方法用于测试URL通过视图反向链接的用法
+def trytest(request):
+        # return redirect(reverse('gotest'))
+    url_back = reverse('go',kwargs={'number':88})
+    print(url_back)
+    return redirect(url_back)
+#用于演示URL反向链接在视图中传参数的用法
+def testargs(request,number):
+    print(number)
+    return HttpResponse('url反向链接视图传参数成功')
 #单表操作读取数据
 def publisherlist(request):
     res = models.publishinfo.objects.all()

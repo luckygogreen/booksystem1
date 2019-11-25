@@ -1,3 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-def carindex(request):
-    return HttpResponse('This is carapp page')
+from django.urls import reverse
+def car(request):
+    # return render(request,reverse('carpage'))
+    return render(request,'car/car.html')

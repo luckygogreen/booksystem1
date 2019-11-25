@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-
+from django.urls import reverse
 # Create your views here.
-def houseindex(request):
-    return HttpResponse('This house index page')
+def house(request):
+    return render(request,'house/house.html')

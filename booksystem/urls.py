@@ -37,7 +37,9 @@ from bookAPP.views import \
     testurl,\
     ceshiurl,\
     moreurl,\
-    getnumurl
+    getnumurl,\
+    trytest,\
+    testargs
 
 
 urlpatterns = [
@@ -57,15 +59,17 @@ urlpatterns = [
     url('addauthor',addauthor),
     url('deleteauthor',deleteauthor),
     url('editauthor',editauthor),
-    url('test',test),
+    url('trytest', trytest),  # 定义一个链接，用于测试URL利用视图反向链接的操作
+    url('test',test,name='gotest'),  #给路径命名一个别名，在浏览器调用别名即可获得当前的路径 HTML 调用方法href={% url 别名 %}
+    url(r'^gogogo/(?P<number>[0-9]{2,4})/$',testargs,name='go'), #用于演示URL反向链接，在视图中传参数的用法
     url(r'^uploadfile/$',uploadfile), # $判断正则表达式是否完全匹配，如果不加$的话，http://127.0.0.1:8001/bookslist/a/d/a/ 也可以正常访问bookslist页面
     url('cocoturl',testurl),
     url(r'^ceshiurl/[0-9]{2,4}/$',ceshiurl),# 地址栏传入正则表达式的内容，开头为ceshiurl/ 拼接一个0-9的2-4位数的地址，$并且检查匹配
     url(r'^moreurl/([0-9]{2,4})/([a-zA-Z]{3})/$',moreurl), #()可以用来分组，所以现在拆分为2组，每组代表一个参数，前面是0-9的2-4位数，后面是3位由字母组成的字符串，后台的方法可以接受穿过来的两组参数
     url(r'^getnumurl/([0-9]+)/$',getnumurl), # +代表，由0-9组成的数字，不限位数，如果不写+号，只能是0-9之间的一位数，并且只有加括号，作为分组，参数才能被view函数接收
 
-    url('house',include(house_urls)),
-    url('car',include(car_urls))
+    url('house/',include(house_urls)),
+    url('car/',include(car_urls))
 ]
 
 ########################################################################
@@ -94,3 +98,40 @@ urlpatterns = [
 # from django.shortcuts import render,HttpResponse,redirect
 # def carindex(request):
 #     return HttpResponse('This is carapp page')
+
+########################################################################
+#Django项目中，Url反向解析
+########################################################################
+# 第一种方式
+# 在要解析的URLs.py文件夹下面给 路径命名别名
+# urlpatterns = [
+#     url('car',views.car,name='gocar') # gocar为命名的别名，可任意命名
+# ]
+# 然后在HTML前段调用命名的别名
+# <a href="{% url 'gocar' %}"> go to car page</a>    #{% url 'gocar' %} 是调用别名的固定写法
+# 第二种方式
+#说先需要确定URL中有被别名的路径
+# url('test', test, name='gotest'),
+# 然后在另外一个视图中操作调用test页面这里，以trytest为例 url('trytest',trytest), #定义一个链接，用于测试URL利用视图反向链接的操作
+# 在Views的视图中找到trytest方法，里面编辑要跳转的test页面，编辑前需要导入reserve包
+# from django.urls import reverse
+# def trytest(request):
+#     return redirect(reverse('gotest'))
+########################################################################
+#Django项目中，Url反向解析,传参数
+########################################################################
+# 第一步，确定好URL参数代码的拼写
+# url(r'^gogogo/(?P<number>[0-9]{2,4})/$', testargs, name='go'),  # 用于演示URL反向链接，在视图中传参数的用法 ,传参数的固定写法必须有 ?P,有几个参数写几个?P
+# 第二步，编辑一个调用上面URL的view函数
+# #定义一个方法用于测试URL通过视图反向链接的用法
+# def trytest(request):
+#         # return redirect(reverse('gotest'))
+#     url_back = reverse('go',kwargs={'number':88})
+#     print(url_back)
+#     return redirect(url_back)
+# 为了方便测试，可以为有参数的URL顶一个view方法，因为有参数所以必须要接受传来的参数
+# def testargs(request,number):
+#     print(number)
+#     return HttpResponse('url反向链接视图传参数成功')
+# 第三步，在HTML中的调用方法
+# <a href="{% url 'go' 88 %}">测试go88HTML 调用</a>
