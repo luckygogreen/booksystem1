@@ -31,7 +31,8 @@ from bookAPP.views import \
     addauthor,\
     deleteauthor,\
     editauthor,\
-    test
+    test,\
+    uploadfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,5 +49,6 @@ urlpatterns = [
     url('addauthor',addauthor),
     url('deleteauthor',deleteauthor),
     url('editauthor',editauthor),
-    url('test',test)
+    url('test',test),
+    url('uploadfile',uploadfile)
 ]

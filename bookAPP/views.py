@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from bookAPP import models
 # Create your views here.
-#测试用方法
+#测试页面调用的方法
 def test(request):
     return render(request,'test.html')
 #单表操作读取数据
@@ -101,3 +101,15 @@ def editauthor(request):
     authorselect = models.authorinfo.objects.get(aid=request.GET['aid'])
     bookslist = models.bookinfo.objects.all()
     return render(request,'editauthor.html',{'authorselect':authorselect,'bookslist':bookslist})
+
+def uploadfile(request):
+    success = ''
+    if request.method == 'POST':
+        filename = request.FILES['uploadfile'].name # 另外一种写法 request.FILES.get('uploadfile').name
+        print(filename)
+        with open(filename,'wb') as file:
+            for i in request.FILES['uploadfile'].chunks():
+                print(i)
+                file.write(i)
+        success = 'upload successful'
+    return render(request,'uploadfile.html',{'showmessage':success})
