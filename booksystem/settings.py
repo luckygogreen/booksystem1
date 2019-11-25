@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookAPP.apps.BookappConfig',
+    'carAPP.apps.CarappConfig', # 可以点出来，注意，首字母一定要大写
+    'houseAPP.apps.HouseappConfig',# 可以点出来，注意，首字母一定要大写
 ]
 
 MIDDLEWARE = [
