@@ -50,7 +50,7 @@ urlpatterns = [
     #url('bookslist',bookslist),
     url(r'^bookslist',views.bookslist), #r表示正则表达式，^表示以booklist开头，
     url('addbook',addbook),
-    url('deletebook',deletebook),
+    url(r'^deletebook/([0-9]+)/$',deletebook),
     url('editbook',editbook),
     url('authorslist',authorslist),
     url('addauthor',addauthor),

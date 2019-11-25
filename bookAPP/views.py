@@ -52,11 +52,9 @@ def addbook(request):
     publisherlist = models.publishinfo.objects.all()
     return render(request,'addbook.html',{'publisherlist':publisherlist})
 #一对多外键关系表删除数据
-def deletebook(request):
-    if request.GET:
-        models.bookinfo.objects.filter(bid=request.GET['bid']).delete()
-        return redirect('/bookslist/')
-    return HttpResponse('Nothing for delete!')
+def deletebook(request,del_id):
+    models.bookinfo.objects.filter(bid=del_id).delete()
+    return redirect('/bookslist/')
 #一对多外键关系表修改数据
 def editbook(request):
     if request.method == 'POST':

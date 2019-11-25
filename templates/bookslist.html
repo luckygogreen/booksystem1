@@ -36,7 +36,7 @@
                     <td data-th="Gender"><span class="bt-content">{{ book.bname }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{ book.book_pubish }}</span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/editbook/?bid={{ book.bid }}">Edit</a></span></td>
-                    <td data-th="Height"><span class="bt-content"><a href="/deletebook/?bid={{ book.bid }}">Delete</a></span></td>
+                    <td data-th="Height"><span class="bt-content"><a href="/deletebook/{{ book.bid }}/">Delete</a></span></td>
                 </tr>
             {% endfor %}
             </tbody>
