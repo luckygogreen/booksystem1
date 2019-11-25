@@ -23,12 +23,11 @@ class Add_publisher(View):
     def post(self,request):
         models.publishinfo.objects.create(pname=request.POST['publishname'])
         return redirect('/publisherlist/')
-#单表操作删除数据
-def deletepublish(request):
-    if request.GET:
-        models.publishinfo.objects.filter(pid=request.GET['pid']).delete()
-        return redirect('/publisherlist/')
-    return HttpResponse('Nothing for delete!')
+#单表操作删除数据,用路由器原理接收要删除的参数ID，参看url配置和前端代码，此处不可以用 if request.method来判断。
+def deletepublish(request,del_id):
+    print(del_id)
+    models.publishinfo.objects.filter(pid=del_id).delete()
+    return redirect('/publisherlist/')
 #单表操作修改数据
 def editpublisher(request):
     if request.method == 'POST':
@@ -101,7 +100,7 @@ def editauthor(request):
     authorselect = models.authorinfo.objects.get(aid=request.GET['aid'])
     bookslist = models.bookinfo.objects.all()
     return render(request,'editauthor.html',{'authorselect':authorselect,'bookslist':bookslist})
-
+#Form表单上传文件方法
 def uploadfile(request):
     success = ''
     if request.method == 'POST':
@@ -113,3 +112,17 @@ def uploadfile(request):
                 file.write(i)
         success = 'upload successful'
     return render(request,'uploadfile.html',{'showmessage':success})
+#测试路由器Url属性方法
+def testurl(request):
+    return HttpResponse('testurl')
+
+def ceshiurl(request):
+    return HttpResponse('ceshiurl')
+
+def moreurl(request,arg1,arg2): #接受从URL路由器传过来的2组参数，只有前面的参数有（）代表以及分组的形式，参数才能被方法获取到
+    print(arg1,'---',arg2)
+    return HttpResponse('moreurl')
+
+def getnumurl(request,arg1):
+    print(arg1)
+    return HttpResponse('getnumurl')

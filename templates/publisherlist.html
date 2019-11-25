@@ -34,7 +34,7 @@
                     <td data-th="Age"><span class="bt-content">{{ publisher.pid }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{publisher.pname}}</span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/editpublisher/?pid={{ publisher.pid }}">Edit</a></span></td>
-                    <td data-th="Height"><span class="bt-content"><a href="/deletepublish/?pid={{ publisher.pid }}">Delete</a></span></td>
+                    <td data-th="Height"><span class="bt-content"><a href="/deletepublish/{{ publisher.pid }}/">Delete</a></span></td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -32,16 +32,23 @@ from bookAPP.views import \
     deleteauthor,\
     editauthor,\
     test,\
-    uploadfile
+    uploadfile,\
+    testurl,\
+    ceshiurl,\
+    moreurl,\
+    getnumurl
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('publisherlist',publisherlist),
+    #url('publisherlist',publisherlist),
+    path('publisherlist/',publisherlist), #在Django2.0以后Url被替换为path，但是url依然可以用
     #url('addpublisher',addpublisher),
     url('addpublisher',views.Add_publisher.as_view()),
-    url('deletepublish',deletepublish),
+    url(r'^deletepublish/([0-9]+)/$',deletepublish),
     url('editpublisher',editpublisher),
-    url('bookslist',bookslist),
+    #url('bookslist',bookslist),
+    url(r'^bookslist',views.bookslist), #r表示正则表达式，^表示以booklist开头，
     url('addbook',addbook),
     url('deletebook',deletebook),
     url('editbook',editbook),
@@ -50,5 +57,9 @@ urlpatterns = [
     url('deleteauthor',deleteauthor),
     url('editauthor',editauthor),
     url('test',test),
-    url('uploadfile',uploadfile)
+    url(r'^uploadfile/$',uploadfile), # $判断正则表达式是否完全匹配，如果不加$的话，http://127.0.0.1:8001/bookslist/a/d/a/ 也可以正常访问bookslist页面
+    url('cocoturl',testurl),
+    url(r'^ceshiurl/[0-9]{2,4}/$',ceshiurl),# 地址栏传入正则表达式的内容，开头为ceshiurl/ 拼接一个0-9的2-4位数的地址，$并且检查匹配
+    url(r'^moreurl/([0-9]{2,4})/([a-zA-Z]{3})/$',moreurl), #()可以用来分组，所以现在拆分为2组，每组代表一个参数，前面是0-9的2-4位数，后面是3位由字母组成的字符串，后台的方法可以接受穿过来的两组参数
+    url(r'^getnumurl/([0-9]+)/$',getnumurl) # +代表，由0-9组成的数字，不限位数，如果不写+号，只能是0-9之间的一位数，并且只有加括号，作为分组，参数才能被view函数接收
 ]
