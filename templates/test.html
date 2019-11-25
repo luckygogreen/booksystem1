@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试专用</title>
+</head>
+<body>
+{% load static %}
+{% static 'images/in2.jpg' as teststaticimg %}
+<img src="{{ teststaticimg }}">
+
+{% load mysimpletag  %}
+{% getsum 1 2 3 %}
+
+{% load my_inclusion %}
+{% first_inclusion 10 %}
+</body>
+</html>

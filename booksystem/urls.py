@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+
+from bookAPP import views
 from bookAPP.views import \
     publisherlist,\
     addpublisher,\
@@ -28,12 +30,14 @@ from bookAPP.views import \
     authorslist,\
     addauthor,\
     deleteauthor,\
-    editauthor
+    editauthor,\
+    test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('publisherlist',publisherlist),
-    url('addpublisher',addpublisher),
+    #url('addpublisher',addpublisher),
+    url('addpublisher',views.Add_publisher.as_view()),
     url('deletepublish',deletepublish),
     url('editpublisher',editpublisher),
     url('bookslist',bookslist),
@@ -43,5 +47,6 @@ urlpatterns = [
     url('authorslist',authorslist),
     url('addauthor',addauthor),
     url('deleteauthor',deleteauthor),
-    url('editauthor',editauthor)
+    url('editauthor',editauthor),
+    url('test',test)
 ]
