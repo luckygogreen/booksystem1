@@ -70,6 +70,8 @@ urlpatterns = [
 
     url('house/',include((house_urls,'house'),namespace='house')),
     url('car/',include((car_urls,'car'),namespace='car')),
-    url('',publisherlist)
+    url(r'^$',publisherlist), #什么都不写，当浏览器访问http://127.0.0.1:8002/  项目初始路径的时候直接返回指定函数
+
+    url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete)
 ]
 

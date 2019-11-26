@@ -124,14 +124,17 @@ def uploadfile(request):
 #测试路由器Url属性方法
 def testurl(request):
     return HttpResponse('testurl')
-
 def ceshiurl(request):
     return HttpResponse('ceshiurl')
-
 def moreurl(request,arg1,arg2): #接受从URL路由器传过来的2组参数，只有前面的参数有（）代表以及分组的形式，参数才能被方法获取到
     print(arg1,'---',arg2)
     return HttpResponse('moreurl')
-
 def getnumurl(request,arg1):
     print(arg1)
     return HttpResponse('getnumurl')
+
+
+def delete(request,table_name,delete_id):
+    print('程序运行到了delete')
+    print(table_name,'-----',delete_id)
+    return HttpResponse('table_name is {},delete_id is {}'.format(table_name,delete_id))
