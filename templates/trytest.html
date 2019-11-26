@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block trytest_active %}
+    class="active"
+{% endblock %}>
+{% block navgation_bar %}
+    <a href="{% url 'tryreverse' %}">Try reverse</a>
+{% endblock %}
+{% block pageinfomation %}
+    <div class="main-wthree">
+        <div class="container">
+            <div class="sin-w3-agile">
+                <form action="/trytest/" method="post" name="trytestfrom">{% csrf_token %}
+                    <div class="username">
+                        <span class="username">输入参数【数字】:</span>
+                        <input type="number" name="get_num" class="name" value="18">
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="login-w3">
+                        <input type="submit" class="login" value="Save" name="submit_trytestfrom">
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

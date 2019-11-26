@@ -74,6 +74,9 @@
                 <li {% block addauthor_active %}{% endblock %}><a href="/addauthor/"><i class="fa fa-user"></i> <span>Add Authors</span>
                     <div class="clearfix"></div>
                 </a></li>
+                <li {% block trytest_active %}{% endblock %}><a href="{% url 'tryreverse' %}"><i class="fa fa-anchor"></i> <span>Try Reverse</span>
+                    <div class="clearfix"></div>
+                </a></li>
 
             </ul>
         </div>

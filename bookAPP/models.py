@@ -6,6 +6,9 @@ class publishinfo(models.Model):
     pname = models.CharField(max_length=32, null=False)
     def __str__(self):
         return self.pname
+    # class Meta:
+    #     ordering = 'pname'
+
 class bookinfo(models.Model):
     bid = models.AutoField(primary_key=True)
     bname = models.CharField(max_length=32,null=False)

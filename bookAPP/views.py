@@ -7,10 +7,11 @@ def test(request):
     return render(request,'test.html')
 #定义一个方法用于测试URL通过视图反向链接的用法
 def trytest(request):
-        # return redirect(reverse('gotest'))
-    url_back = reverse('go',kwargs={'number':88})
-    print(url_back)
-    return redirect(url_back)
+    if request.method == 'POST':
+        url_back = reverse('go',kwargs={'number':request.POST['get_num']})  #向别名为go的链接以字典的方式传入参数 reverse是反向的意思
+        print(url_back)
+        return redirect(url_back)
+    return render(request,'trytest.html')
 #用于演示URL反向链接在视图中传参数的用法
 def testargs(request,number):
     print(number)
@@ -137,6 +138,7 @@ def getnumurl(request,arg1):
 def delete(request,table_name,delete_id):  #接受浏览器url传过来的符合正则表达式参数 url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete)
     print('程序运行到了delete')
     print(table_name,'-----',delete_id)
+    #利用字符串反射类，函数，变量的方法，一共两部，第一步判断if hasattr(models,table_name): ，第二步获取deletetable = getattr(models,table_name)
     if hasattr(models,table_name):  #判断表名是否在models类中，
         print('表存在于Models中')
         print(getattr(models,table_name)) #getattr(models,table_name 返回的值为<class 'bookAPP.models.publishinfo'>
