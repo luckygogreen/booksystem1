@@ -4,7 +4,7 @@ if __name__ == '__main__':
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "booksystem1.settings")
     import django
     django.setup()
-    from bookAPP import models  #此处导入，必须在判断体内，如果在判断体外会报错
+    from bookAPP import models  #此处导入，必须在django.setup()后，因为只有启动Django才能执行，否则会报错
     print('⬇ ️all()取所有️')
     print(models.publishinfo.objects.all())  #查询打印所有的出版社
     print('⬇ filter()取数据️')
@@ -35,6 +35,25 @@ if __name__ == '__main__':
     print(models.publishinfo.objects.last()) #返回最后一条记录
     print('exists 判断是否为空表'.center(30, '⬇'))
     print(models.publishinfo.objects.exists()) #判断是否为空表，返回一个Ture或False的布尔值
+    print('pid__gt 大于，pid__lt小于'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pid__gt=1,pid__lt=6)) #查询id 大于1小于6的数据
+    print('pid__in 取指定内容的值'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pid__in=[1,3,5,7,9])) # 取出ID为 1，3，5，7，9的值
+    print('pname__contains 模糊查询区分大小写'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pname__contains='A')) # 模糊查询区分大小写
+    print('pname__icontains 模糊查询不区分大小写'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pname__icontains='A')) #模糊查询不区分大小写
+    print('pid__range 范围区间取值'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pid__range=[1,8])) #取ID范围是1-8之间的值
+    print('pname__startswith和istartswith 匹配开始取值'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pname__startswith='a')) #取a开头的数据，区分大小写
+    print(models.publishinfo.objects.filter(pname__istartswith='a')) #取a开头的数据，不区分大小写
+    print('pname__endswith和iendswith 匹配末尾取值'.center(30, '⬇'))
+    print(models.publishinfo.objects.filter(pname__endswith='R')) #取R结尾的数据，区分大小写
+    print(models.publishinfo.objects.filter(pname__iendswith='R')) #取R结尾的数据，不区分大小写
+    # date字段还可以：
+    # models.Class.objects.filter(first_day__year=2017) #还有字段__year
+
 
 
 
