@@ -13,6 +13,7 @@ class bookinfo(models.Model):
     bid = models.AutoField(primary_key=True)
     bname = models.CharField(max_length=32,null=False)
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
+    #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_query_name='xxoo')
     def __str__(self):
         return self.bname
 
