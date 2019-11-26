@@ -69,6 +69,7 @@ urlpatterns = [
     url(r'^getnumurl/([0-9]+)/$',getnumurl), # +代表，由0-9组成的数字，不限位数，如果不写+号，只能是0-9之间的一位数，并且只有加括号，作为分组，参数才能被view函数接收
 
     url('house/',include((house_urls,'house'),namespace='house')),
-    url('car/',include((car_urls,'car'),namespace='car'))
+    url('car/',include((car_urls,'car'),namespace='car')),
+    url('',publisherlist)
 ]
 
