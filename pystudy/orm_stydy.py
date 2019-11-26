@@ -5,6 +5,8 @@ if __name__ == '__main__':
     import django
     django.setup()
     from bookAPP import models  #此处导入，必须在django.setup()后，因为只有启动Django才能执行，否则会报错
+
+    #查询的用法
     print('⬇ ️all()取所有️')
     print(models.publishinfo.objects.all())  #查询打印所有的出版社
     print('⬇ filter()取数据️')
@@ -54,12 +56,29 @@ if __name__ == '__main__':
     # date字段还可以：
     # models.Class.objects.filter(first_day__year=2017) #还有字段__year
 
+    print('*'*100)
+#  外键表的查询,主键到外键教做正向查询，外检表到主键表叫反向查询
+    res = models.bookinfo.objects.first()
+    re = res.book_pubish
+    r = res.book_pubish.pname
+    print(res,type(res))
+    print(re,type(re))
+    print(r,type(r))
+#双下划线查找方法
+    result = models.bookinfo.objects.filter(bid=3).values('book_pubish__pname')
+    print(result,type(result))
+#end
 
-
-
-
-
-
+#  外键表的查询,主键到外键教做反向查询，外检表到主键表叫反向查询
+    publish_object = models.publishinfo.objects.first()
+    #reverse_result = publish_object.bookinfo_set.all() #如果Class model中没有定义related_name ,则需要这样查找
+    reverse_result = publish_object.books.all() ##如果Class model中定义了related_name ,就可以直接用定义的名字查
+    print('*'*100)
+    print(reverse_result)
+    print(reverse_result[0])
+#双下划线查找方法
+    reverse_result = models.publishinfo.objects.filter(pid=1).values_list('books__bname')#如果Class model中定义了related_name='books'
+    print(reverse_result[0])
 
 
 
