@@ -133,8 +133,21 @@ def getnumurl(request,arg1):
     print(arg1)
     return HttpResponse('getnumurl')
 
-
-def delete(request,table_name,delete_id):
+#利用路由器地址解析，发射功能删除指定数据表的内容
+def delete(request,table_name,delete_id):  #接受浏览器url传过来的符合正则表达式参数 url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete)
     print('程序运行到了delete')
     print(table_name,'-----',delete_id)
+    if hasattr(models,table_name):  #判断表名是否在models类中，
+        print('表存在于Models中')
+        print(getattr(models,table_name)) #getattr(models,table_name 返回的值为<class 'bookAPP.models.publishinfo'>
+        deletetable = getattr(models,table_name) #讲得到的路径返回给一个变量deletetable
+        #deletetable.objects.filter(pid=delete_id).delete()
+        try:
+            deletetable.objects.get(pid=delete_id).delete() #删除自定表里ID为delete_id的数据，这里Try 用来判断传入的id是否存在，这里是打点不出来的。
+            return HttpResponse('数据删除成功')
+        except Exception as e:
+            print(e)
+            return HttpResponse('没有该ID的值')
+    else:
+        return HttpResponse('没有要删除的表')
     return HttpResponse('table_name is {},delete_id is {}'.format(table_name,delete_id))

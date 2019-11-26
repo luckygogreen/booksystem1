@@ -1,4 +1,5 @@
 import sys
+#仅在本地文件下这样调用，如果有models类，则需要直接调用models类
 resys = sys.modules[__name__]  #系统里面的一个modulesde包，[__name__] 表示当前文件
 
 class Person(object):
