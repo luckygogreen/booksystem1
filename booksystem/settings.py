@@ -135,3 +135,23 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 APPEND_SLASH=True #默认是Ture，表示，浏览器地址栏如果末尾没有/的话，会自动加上一个斜杠，如果为False的话，则不会自动加上/
+
+
+#让Django终端打印SQL语句
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}

@@ -129,10 +129,57 @@ if __name__ == '__main__':
     # getauthorid.author_book_publish.clear()  #清空该作者的所有书
     print('clear（）清空指定数据')
 
+#聚合分组方法必须要导入 如下包
+    from django.db.models import Avg, Sum, Max, Min, Count
+# ORM 聚合
+#
+#     print(models.bookinfo.objects.aggregate(Avg('bprice'))) #求平均值,返回的是一个字典
+#     print(models.bookinfo.objects.aggregate(Sum('bprice'))) #求和
+#     print(models.bookinfo.objects.aggregate(Max('bprice'))) #求最大值
+#     print(models.bookinfo.objects.aggregate(Min('bprice'))) #求最小值
+#     print(models.bookinfo.objects.aggregate(Count('bid'))) #求总计
+#     getall = models.bookinfo.objects.aggregate(Avg('bprice'),Sum('bprice'),Max('bprice'),Min('bprice'),Count('bprice')) #求最小值
+#     print(getall)
+#     print(getall['bprice__sum'])
+#     print(getall['bprice__count'])
+    print('ORM 聚合查询')
 
-#ORM聚合和分组
+#ORM 分组
+    #查询每本书的作者数 多对多分组查询，反向查，需要输入表名
+    # allbooks_obj = models.bookinfo.objects.all().annotate(author_num = Count('authorinfo'))
+    # print(allbooks_obj)
+    # for book in allbooks_obj:
+    #     print(book,book.author_num)
+    # print('ORM 分组查询')
 
+    #查询每个作者有几本书 多对多分组查询，正向查，只需表中的关联字段
+    # allauthor_obj = models.authorinfo.objects.all().annotate(book_num = Count('author_book_publish'))
+    # print(allauthor_obj)
+    # for author in allauthor_obj:
+    #     print(author,author.book_num)
 
+    #查询书数量大于2的作者
+    #多对多关系
+    # allauthor_obj = models.authorinfo.objects.all().annotate(book_num = Count('author_book_publish')).filter(book_num__gt = 2)
+    # for author in allauthor_obj:
+    #     print(author, author.book_num)
 
+    #查询每个出版社有几本书 外键关系 ，反向查
+    # allpublish_obj = models.publishinfo.objects.all().annotate(book_num = Count('bookinfo'))
+    # print(allpublish_obj)
+    # for publish in allpublish_obj:
+    #     print(publish,publish.book_num)
 
+    # 查询每个出版社有几本书,并且排序 外键关系 ，反向查
+    # allpublish_obj = models.publishinfo.objects.all().annotate(book_num = Count('bookinfo')).order_by('book_num') #正序排
+    # allpublish_obj = models.publishinfo.objects.all().annotate(book_num = Count('bookinfo')).order_by('book_num').reverse() #倒序排行
+    # print(allpublish_obj)
+    # for publish in allpublish_obj:
+    #     print(publish,publish.book_num)
 
+    #查询作者出书的总价格大于10元的，反向排序
+    # allauthor_obj = models.authorinfo.objects.all().annotate(book_pricesum = Sum('author_book_publish__bprice')).filter(book_pricesum__gt=10).order_by('book_pricesum').reverse()
+    # # print(allauthor_obj)
+    # for pricesum in allauthor_obj:
+    #     print(pricesum.aname,pricesum.book_pricesum,pricesum.author_book_publish.values_list('bname','bprice').)
+    #     # print(pricesum,pricesum.book_pricesum,pricesum.author_book_publish.values('bname','bprice'))
