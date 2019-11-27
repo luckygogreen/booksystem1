@@ -12,6 +12,7 @@ class publishinfo(models.Model):
 class bookinfo(models.Model):
     bid = models.AutoField(primary_key=True)
     bname = models.CharField(max_length=32,null=False)
+    bprice = models.DecimalField(max_digits=6,decimal_places=2,default=16.99) # max_digits=6,decimal_places=2这两个参数是必填项
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE)
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_query_name='xxoo')
