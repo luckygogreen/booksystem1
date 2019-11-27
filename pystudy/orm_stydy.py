@@ -87,14 +87,14 @@ if __name__ == '__main__':
     #create()
     print('*'*100)
     #查询第一个作者
-    author_obj = models.authorinfo.objects.first()
+    author_obj = models.authorinfo.objects.get(aid=8)
     print(author_obj)
     #查询该作者的所有书
     authors_books = author_obj.author_book_publish.all()
     print(authors_books)
     #给该作者添加一本书
     #create（）方法
-    author_obj.author_book_publish.create(bname = 'Kevin自传',book_pubish_id = 1)
+    author_obj.author_book_publish.create(bname = 'mini高级攻略',book_pubish_id = 9)
 
 
 
