@@ -1,5 +1,6 @@
 import os
 #如果需要在一个单独的PY脚本文件中导入Django模块，下面是固定代码 booksystem1 是你的项目名，bookAPP是你的settings.py所在文件夹名
+
 if __name__ == '__main__':
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "booksystem1.settings")
     import django
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     # print('⬇ get()取数据')
     # print(models.publishinfo.objects.get(pid=1)) #用get查询如果没有，则报错 #matching query does not exist.
     # print('⬇ exclude()取数据')
-    # print(models.publishinfo.objects.exclude(pid=1)[0]) # 排除赛选的值，取其他的值[0]第一个元素
+    # print(models.publishinfo.objects.exclude(pid=1)[0]) # 排除赛选的值，取其他的值[0]第一个元素，不加[0]就是取全部元素
     # print('values取指定列字段'.center(30,'⬇'))
     # print(models.publishinfo.objects.values('pname')) #返回指定列的一个字典
     # print('values取所有字段'.center(30, '⬇'))
@@ -36,7 +37,8 @@ if __name__ == '__main__':
     # print(models.publishinfo.objects.first()) #返回第一条记录
     # print('last 取尾个数据'.center(30, '⬇'))
     # print(models.publishinfo.objects.last()) #返回最后一条记录
-    # print('exists 判断是否为空表'.center(30, '⬇'))
+    # print('exists 判断是否为空表'.center(30, '⬇'))# #把仓库数大于200，且书名中没有字母A或者a的书取出来
+    # print(models.bookinfo.objects.filter(Q(binventory__gt=200) & ~Q(bname__icontains='a')).values_list('bname'))
     # print(models.publishinfo.objects.exists()) #判断是否为空表，返回一个Ture或False的布尔值
     # print('pid__gt 大于，pid__lt小于'.center(30, '⬇'))
     # print(models.publishinfo.objects.filter(pid__gt=1,pid__lt=6)) #查询id 大于1小于6的数据
@@ -181,5 +183,42 @@ if __name__ == '__main__':
     # allauthor_obj = models.authorinfo.objects.all().annotate(book_pricesum = Sum('author_book_publish__bprice')).filter(book_pricesum__gt=10).order_by('book_pricesum').reverse()
     # # print(allauthor_obj)
     # for pricesum in allauthor_obj:
-    #     print(pricesum.aname,pricesum.book_pricesum,pricesum.author_book_publish.values_list('bname','bprice').)
+    #     print(pricesum.aname,pricesum.book_pricesum,pricesum.author_book_publish.values_list('bname','bprice'))
     #     # print(pricesum,pricesum.book_pricesum,pricesum.author_book_publish.values('bname','bprice'))
+
+
+
+#F查询 必须要导入下面的F包
+    from django.db.models import F
+    from django.db.models import Q
+    from django.db.models.functions import Concat
+    from django.db.models import Value
+    #查询库存数大于销售数的书列表
+    # books_moreinventory = models.bookinfo.objects.filter(binventory__gt=F('bsalesvolume')).order_by('binventory').reverse().values_list('bname','binventory','bsalesvolume')
+    # books_moresalesvolume = models.bookinfo.objects.filter(binventory__lt=F('bsalesvolume')).order_by('bsalesvolume').reverse().values_list('bname','binventory','bsalesvolume')
+    # print(books_moreinventory)
+    # print(books_moresalesvolume)
+
+    # #库存数小于10的书 数量加100 lt小于
+    # models.bookinfo.objects.filter(binventory__lt=10).update(binventory=F('binventory')+100)
+    #
+    # #把所有书名后面加'第一版'  gt大于
+    # models.bookinfo.objects.filter(bsalesvolume__gt=100).update(bname=Concat(F('bname'),Value('第一版')))
+
+    # #把仓库数大于100和销售数小于100的书列出来
+    # print(models.bookinfo.objects.filter(Q(binventory__gt=100) & Q(bsalesvolume__lt=100)).values_list('bname'))
+    # #&表示并且，|表示或者
+    #
+    # #把仓库数大于100或者销售数小于100的书列出来
+    # print(models.bookinfo.objects.filter(Q(binventory__gt=100) | Q(bsalesvolume__lt=100)).values_list('bname'))
+
+    #把仓库数不等于100并且销售数不等于200的书列出来
+    # # #~在Q查询中可以用作取反
+    # print(models.bookinfo.objects.filter(~Q(binventory=100) & ~Q(bsalesvolume=200)).values_list('bname'))
+
+    # #把仓库数大于200，且书名中没有字母A或者a的书取出来
+    # print(models.bookinfo.objects.filter(Q(binventory__gt=200) & ~Q(bname__icontains='a')).values_list('bname'))
+
+    # #把仓库数大于200，且书名中包括字母A或者a的书取出来
+    # #如果Q查询和其他筛选混用，Q查询必须放在参数的最前面，Q和Q之间可以并列
+    # print(models.bookinfo.objects.filter(Q(binventory__gt=200),bname__icontains='A').values_list('bname'))

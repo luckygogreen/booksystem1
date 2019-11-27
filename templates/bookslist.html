@@ -24,6 +24,8 @@
                 <th>Book ID</th>
                 <th>Book Name</th>
                 <th>Book Price</th>
+                <th>Inventory</th>
+                <th>Sales volume</th>
                 <th>Publisher Name</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -36,6 +38,8 @@
                     <td data-th="Age"><span class="bt-content">{{ book.bid }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{ book.bname }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{ book.bprice }}</span></td>
+                    <td data-th="Gender"><span class="bt-content">{{ book.binventory }}</span></td>
+                    <td data-th="Gender"><span class="bt-content">{{ book.bsalesvolume }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{ book.book_pubish }}</span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/editbook/?bid={{ book.bid }}">Edit</a></span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/deletebook/{{ book.bid }}/">Delete</a></span></td>
