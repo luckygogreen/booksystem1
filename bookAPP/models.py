@@ -27,7 +27,10 @@ class authorinfo(models.Model):
     aage = models.IntegerField(default=20)
     aphone = models.IntegerField(default=4165657767)
     author_book_publish = models.ManyToManyField(bookinfo)
+    adetails = models.OneToOneField(to="authordetails",on_delete=models.CASCADE)
     def __str__(self):
         return self.aname
 
-
+class authordetails(models.Model):
+    ahobby = models.CharField(max_length=32,default='dog')
+    alocation = models.CharField(max_length=32,default='Canada')
