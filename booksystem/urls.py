@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import url,include
 from houseAPP import urls as house_urls
 from carAPP import urls as car_urls
+from app02 import views as appveiws
 from bookAPP import views
 from bookAPP.views import \
     publisherlist,\
@@ -86,5 +87,7 @@ urlpatterns = [
     url(r'^$',publisherlist), #什么都不写，当浏览器访问http://127.0.0.1:8002/  项目初始路径的时候直接返回指定函数
 
     #路由器参数反射函数，类和变量
-    url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete)
+    url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete),
+    url(r'^faq/$',appveiws.faq)
+
 ]
