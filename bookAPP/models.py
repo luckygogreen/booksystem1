@@ -21,16 +21,16 @@ class bookinfo(models.Model):
     def __str__(self):
         return self.bname
 
-# class authorinfo(models.Model):
-#     aid = models.AutoField(primary_key=True)
-#     aname = models.CharField(max_length=32,null=False)
-#     aage = models.IntegerField(default=20,null=True)
-#     aphone = models.IntegerField(default=4165657767,null=True)
-#     author_book_publish = models.ManyToManyField(bookinfo)
-#     adetails = models.OneToOneField(to="authordetails",on_delete=models.CASCADE)
-#     def __str__(self):
-#         return self.aname
-#
-# class authordetails(models.Model):
-#     ahobby = models.CharField(max_length=32,default='dog',null=True)
-#     alocation = models.CharField(max_length=32,default='Canada',null=True)
+class authorinfo(models.Model):
+    aid = models.AutoField(primary_key=True)
+    aname = models.CharField(max_length=32,null=False)
+    aage = models.IntegerField(default=20,null=True)
+    aphone = models.CharField(max_length=32,null=True)
+    author_book_publish = models.ManyToManyField(bookinfo)
+    adetails = models.OneToOneField(to="authordetails",on_delete=models.CASCADE)
+    def __str__(self):
+        return self.aname
+
+class authordetails(models.Model):
+    ahobby = models.CharField(max_length=32,default='dog',null=True)
+    alocation = models.CharField(max_length=32,default='Canada',null=True)
