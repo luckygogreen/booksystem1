@@ -260,3 +260,47 @@ if __name__ == '__main__':
     # # 8查询书名是科技指南的作者爱好 跨两张表
     # rs = models.bookinfo.objects.filter(bname='科技指南').values_list('authorinfo__adetails__ahobby')
     # print(rs)
+
+
+
+    # ORM分组补充
+    # # 查询不同类型书的平均书价 ORM分组补充 单表分组查询
+    # from django.db.models import Avg
+    # print(models.bookinfo.objects.values('btype').annotate(priceavg = Avg('bprice')).values('btype','priceavg'))
+
+    # ORM分组补充
+    # # 查询各出版社的书价格平均值 ORM分组补充 外键表，表分组查询
+    # from django.db.models import Avg
+    # print(models.publishinfo.objects.values('pid').annotate(priceavg = Avg('bookinfo__bprice')).values('pname','priceavg'))
+
+    # ORM分组补充
+    # # 查询所有书所对应的出版社 ORM分组补充 外键表，表分组查询 两种方法以及select_related的用法
+    # print(models.bookinfo.objects.values('bname','book_pubish__pname'))  # 第一种方法，最常用简单
+    # print(models.bookinfo.objects.select_related().values('bname','book_pubish__pname'))  # 第一种方法，取出联表里面的所有字段，用于外键表的查询，对SQL语句进行了优化，提高性能
+
+    # # 查询所有作者对应的书名 多对多表，或这一对多表查询是需要用到prefetch_related
+    # print(models.authorinfo.objects.select_related().values('aname','author_book_publish__bname'))
+    # print(models.authorinfo.objects.prefetch_related().values('aname','author_book_publish__bname'))#  分别查询多张表，然后把返回的结果，用Python输出出来
+
+    # 批量插入，创建数据的方法 bulk_create
+    # print('测试输出1001:',models.publishinfo(pname='加拿大第2出版社').pname)
+    # objs = [models.publishinfo(pname='加拿大第{}出版社'.format(i)) for i in range(1,5)] # models.publishinfo(pname='加拿大第{}出版社'.format(i)) 这里知识把后面的值赋给pname字段，并没i而又保存，且用models.publishinfo(pname='')这种方法并不能去数据出来。
+    # print(objs)
+    # models.publishinfo.objects.bulk_create(objs,2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

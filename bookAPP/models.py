@@ -7,7 +7,7 @@ class publishinfo(models.Model):
     def __str__(self):
         return self.pname
     # class Meta:
-    #     ordering = 'pname'
+    #     db_table = 'publisher'  创建表的时候，表明自定义，不用系统自动生产的函数
 
 class bookinfo(models.Model):
     bid = models.AutoField(primary_key=True)
@@ -15,6 +15,7 @@ class bookinfo(models.Model):
     bprice = models.DecimalField(max_digits=6,decimal_places=2,default=16.99) # max_digits=6,decimal_places=2这两个参数是必填项
     binventory = models.IntegerField(default=100)
     bsalesvolume = models.IntegerField(default=0)
+    btype = models.CharField(max_length=32,default='教育')
     bpublishdata = models.DateField(default=datetime.date.today())
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE)
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
