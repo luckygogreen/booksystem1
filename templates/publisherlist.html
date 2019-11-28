@@ -32,12 +32,38 @@
                 <tr>
                     <td data-th="Name"><span class="bt-content">{{ forloop.counter }}</span></td>
                     <td data-th="Age"><span class="bt-content">{{ publisher.pid }}</span></td>
-                    <td data-th="Gender"><span class="bt-content">{{publisher.pname}}</span></td>
-                    <td data-th="Height"><span class="bt-content"><a href="/editpublisher/?pid={{ publisher.pid }}">Edit</a></span></td>
-                    <td data-th="Height"><span class="bt-content"><a href="/deletepublish/{{ publisher.pid }}/">Delete</a></span></td>
+                    <td data-th="Gender"><span class="bt-content">{{ publisher.pname }}</span></td>
+                    <td data-th="Height"><span class="bt-content"><a
+                            href="/editpublisher/?pid={{ publisher.pid }}">Edit</a></span></td>
+                    <td data-th="Height"><span class="bt-content"><a
+                            href="/deletepublish/{{ publisher.pid }}/">Delete</a></span></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="/publisherlist/?page=1" aria-label="Previous">
+                        <span aria-hidden="true">首页</span>
+                    </a>
+                </li>
+                {{ prepvious | safe }}
+                {% for i in totalpage %}
+                    {% if nowpage == i %}
+                        <li class="active"><a href="/publisherlist/?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                        <li><a href="/publisherlist/?page={{ i }}">{{ i }}</a></li>
+                {% endfor %}
+
+
+                {{ nextpage | safe }}
+                <li>
+                    <a href="/publisherlist/?page={{ lastpage }}" aria-label="Next">
+                        <span aria-hidden="true">尾页</span>【共{{ lastpage }}页】
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 {% endblock %}

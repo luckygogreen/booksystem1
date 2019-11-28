@@ -46,9 +46,8 @@ from bookAPP.views import \
 urlpatterns = [
     path('admin/', admin.site.urls),
     #url('publisherlist',publisherlist),
-
-
-    path('publisherlist/',publisherlist), #在Django2.0以后Url被替换为path，但是url依然可以用
+    # path('publisherlist/',publisherlist), #在Django2.0以后Url被替换为path，但是url依然可以用
+    url(r'^publisherlist/$',publisherlist),
     #url('addpublisher',addpublisher),
     url('addpublisher',views.Add_publisher.as_view()), #另外一种调用View函数的方法，等同于上面的方法
     url(r'^deletepublish/([0-9]+)/$',deletepublish),

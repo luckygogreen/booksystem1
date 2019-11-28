@@ -284,11 +284,27 @@ if __name__ == '__main__':
 
     # 批量插入，创建数据的方法 bulk_create
     # print('测试输出1001:',models.publishinfo(pname='加拿大第2出版社').pname)
-    # objs = [models.publishinfo(pname='加拿大第{}出版社'.format(i)) for i in range(1,5)] # models.publishinfo(pname='加拿大第{}出版社'.format(i)) 这里知识把后面的值赋给pname字段，并没i而又保存，且用models.publishinfo(pname='')这种方法并不能去数据出来。
-    # print(objs)
-    # models.publishinfo.objects.bulk_create(objs,2)
+    objs = [models.publishinfo(pname='加拿大第{}出版社'.format(i+30)) for i in range(31,330)] # models.publishinfo(pname='加拿大第{}出版社'.format(i)) 这里知识把后面的值赋给pname字段，并没i而又保存，且用models.publishinfo(pname='')这种方法并不能去数据出来。
+    print(objs)
+    models.publishinfo.objects.bulk_create(objs,10) # 把刚才保存objs 插入到数据库中，每10条运行一次Sql语句
 
-
+    # 接受request的数据 如果GET没有参数，可以给GET默认设置一个默认值，分页时候很有用
+    # 从post中取得数据，如果不存在则默认值为1 
+    # pageNumber = request.POST.get('pageNumber', 1) 
+    # 从get中取得数据，如果不存在则默认值为1 
+    # pageNumber = request.GET.get('pageNumber', 1) 
+    # 从所有请求中取得数据，如果不存在则默认值为1 
+    # pageNumber = request.REQUEST.get('pageNumber', 1) 
+    # 判断一个请求是post还是get方式 
+    # if request.method == 'GET':  
+    # 对于request的操作可以参考 
+    # ————————————————
+    # 版权声明：本文为CSDN博主「鹤鹤有明」的原创文章，遵循
+    # CC
+    # 4.0
+    # BY - SA
+    # 版权协议，转载请附上原文出处链接及本声明。
+    # 原文链接：https: // blog.csdn.net / u011630575 / article / details / 51085812
 
 
 
