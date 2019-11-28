@@ -56,6 +56,7 @@ if __name__ == '__main__':
     # print('pname__endswith和iendswith 匹配末尾取值'.center(30, '⬇'))
     # print(models.publishinfo.objects.filter(pname__endswith='R')) #取R结尾的数据，区分大小写
     # print(models.publishinfo.objects.filter(pname__iendswith='R')) #取R结尾的数据，不区分大小写
+    # print(models.bookinfo.objects.all().values_list('book_pubish__pname').distinct()) # distinct 用于去重
     # date字段还可以：
     # models.Class.objects.filter(first_day__year=2017) #还有字段__year
     #print('*'*100)

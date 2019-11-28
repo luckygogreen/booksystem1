@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 class publishinfo(models.Model):
     pid = models.AutoField(primary_key=True)
@@ -15,6 +15,7 @@ class bookinfo(models.Model):
     bprice = models.DecimalField(max_digits=6,decimal_places=2,default=16.99) # max_digits=6,decimal_places=2这两个参数是必填项
     binventory = models.IntegerField(default=100)
     bsalesvolume = models.IntegerField(default=0)
+    bpublishdata = models.DateField(default=datetime.date.today())
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE)
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_query_name='xxoo')

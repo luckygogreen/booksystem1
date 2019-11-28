@@ -36,3 +36,4 @@ if __name__ == '__main__':
     print('第三种方法:', *rs)
     #删除第一个作者的第一本书
     # models.authors_books.objects.get(authorsid=1,booksid=1).delete()
+
