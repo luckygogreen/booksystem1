@@ -222,3 +222,11 @@ if __name__ == '__main__':
     # #把仓库数大于200，且书名中包括字母A或者a的书取出来
     # #如果Q查询和其他筛选混用，Q查询必须放在参数的最前面，Q和Q之间可以并列
     # print(models.bookinfo.objects.filter(Q(binventory__gt=200),bname__icontains='A').values_list('bname'))
+
+    # # 一对一关系表的查询
+    # author_details_obj = models.authorinfo.objects.get(aid=1)
+    # print(author_details_obj.adetails.ahobby)
+
+    # 多对多的三种查询方式
+    # 查询app02下第一本书的作者都是谁，因为涉及到数据库表名的操作，为了防止出错，
+    # 请参看DjangoHigh.py

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'bookAPP.apps.BookappConfig',
     'carAPP.apps.CarappConfig', # 可以点出来，注意，首字母一定要大写
     'houseAPP.apps.HouseappConfig',# 可以点出来，注意，首字母一定要大写
+    'app02.apps.App02Config',
+    'app03.apps.App03Config',
 ]
 
 MIDDLEWARE = [
