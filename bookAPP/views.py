@@ -26,8 +26,8 @@ def testargs(request, number):
 
 # 单表操作读取数据
 def publisherlist(request):
-    from utils.pagination import Pagination
-    PaginationObj = Pagination(models.publishinfo.objects.all().count(),request.GET.get('page',1),10,10)
+    from utils.pagination import Pagination #导入自定义的工具包
+    PaginationObj = Pagination(models.publishinfo.objects.all().count(),request.GET.get('page',1),10,10) #实例化工具包的对象
     alldata = models.publishinfo.objects.all()[PaginationObj.startnum:PaginationObj.endnum]
     return render(request,'publisherlist.html',
                   {

@@ -1,5 +1,8 @@
 #此类用于实现列表分页功能
 #Kevin 创建与2019年11月29日，12:56AM
+
+#调用快捷键:
+# Pagination(Number_of_Data,Selected_Page,display_number_per_page,Maximum_number_of_pages_displayed)
 class Pagination(object):
     def __init__(self,datarow,currentpage,dataperpage=10,maxpage=10): # 参数分别为，总返回的数据行数，当前页数，每页显示数量，最多显示多少页
         self.totalpages, m=divmod(datarow,dataperpage) # divmod（总返回的数据行数，每页显示数量）返回两个数，第一个是倍数，第二个是余数 = 总返回的数据行数 //每页显示数量 取余，分别返回给两个函数totalpages,m
@@ -49,43 +52,45 @@ class Pagination(object):
             else: # 如果总页数大于最大显示页数 #并且 当前页小于等于中间页数
                 endpage = maxpage+1 # 结束页为最大页+1
         self.pagerange = range(startpage, endpage) #给页面页数循环区间赋值
+        #后台打印监控数据
         print('当前页:',self.pagecurrent)
         print('起始数:',self.startnum,'结束数:',self.endnum)
         print('开始页:',startpage,'结束页:',endpage)
         print('上一页：',self.previous,'上一页开关：',self.previous_switch)
         print('下一页：',self.next,'下一页开关：',self.next_switch)
+    #显示起始数
     @property
     def begin_num(self):
         return self.startnum
-
+    #显示结尾数
     @property
     def end_num(self):
         return self.endnum
-
+    #显示页数区间
     @property
     def page_range(self):
         return self.pagerange
-
+    #显示尾页数
     @property
     def last_page(self):
         return self.lastpage
-
+    #显示当前页数
     @property
     def page_current(self):
         return self.pagecurrent
-
+    #显示上一页
     @property
     def page_previous(self):
         return self.previous
-
+    #显示下一页
     @property
     def page_next(self):
         return self.next
-
+    #上一页开关
     @property
     def page_previous_switch(self):
         return self.previous_switch
-
+    #下一页开关
     @property
     def page_next_switch(self):
         return self.next_switch
