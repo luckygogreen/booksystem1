@@ -5,6 +5,13 @@
 # Pagination(Number_of_Data,Selected_Page,display_number_per_page,Maximum_number_of_pages_displayed)
 class Pagination(object):
     def __init__(self,datarow,currentpage,dataperpage=10,maxpage=10): # 参数分别为，总返回的数据行数，当前页数，每页显示数量，最多显示多少页
+        '''
+
+        :param datarow: 总返回的数据行数
+        :param currentpage: 当前页数
+        :param dataperpage: 每页显示数量
+        :param maxpage: 最多显示多少页
+        '''
         self.totalpages, m=divmod(datarow,dataperpage) # divmod（总返回的数据行数，每页显示数量）返回两个数，第一个是倍数，第二个是余数 = 总返回的数据行数 //每页显示数量 取余，分别返回给两个函数totalpages,m
         startpage = 1  #起始页初始值
         endpage = self.totalpages+1 #结束页初始值
