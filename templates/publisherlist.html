@@ -48,16 +48,29 @@
                         <span aria-hidden="true">首页</span>
                     </a>
                 </li>
-                {{ prepvious | safe }}
-                {% for i in totalpage %}
-                    {% if nowpage == i %}
+                {% if previousswitch != 0 %}
+                    <li>
+                        <a href="/publisherlist/?page={{ previouspage }}" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for i in pagerange %}
+                    {% if currentpage == i %}
                         <li class="active"><a href="/publisherlist/?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
+                    {% else %}
                         <li><a href="/publisherlist/?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
                 {% endfor %}
 
 
-                {{ nextpage | safe }}
+                {% if nextpageswitch != 0 %}
+                    <li>
+                        <a href="/publisherlist/?page={{ nextpage }}" aria-label="Previous">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                {% endif %}
                 <li>
                     <a href="/publisherlist/?page={{ lastpage }}" aria-label="Next">
                         <span aria-hidden="true">尾页</span>【共{{ lastpage }}页】

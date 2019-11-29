@@ -26,50 +26,20 @@ def testargs(request, number):
 
 # 单表操作读取数据
 def publisherlist(request):
-    # 分页部分开始
-    perpage = 20    # 定义每页显示几条数据
-    totalcount = models.publishinfo.objects.all().count() #获取数据库一共有几条记录
-    maxpage = 11  # 获取要显示的最大页数
-    halfpage = maxpage // 2  #对最大页数取余
-    totalpage, m = divmod(totalcount, perpage)  #divmod用于前参数除以后参数，得到一个倍数和余数的列表
-    if m: #如果有余数
-        totalpage += 1  #总显示页数+1，因为31需要4页显示
-        lastpage = totalpage
-    getselectpageid = request.GET.get('page', 1)  # 取出浏览器传入的当前页值
-    try:  # 用于获取用户浏览器的非法输入，
-        nowpage = int(getselectpageid)  # 浏览器传入的全是STR类型，所以墙砖为INT类型
-    except Exception as e:
-        print(e)
-        nowpage = 1
-    if nowpage>totalpage:
-        nowpage = 1
-    starpage = nowpage - halfpage   # 计算首页的值
-    endpage = nowpage+halfpage #计算尾页的值
-    if nowpage <= halfpage:  #如果当前页数小于一半页数，#始终显示前10页
-        totalpage = range(1, totalpage+1)
-    else:
-        if endpage >totalpage: #如果结尾页数大于总页数 ，始终显示最大页数
-            endpage = totalpage
-        totalpage = range(starpage, endpage)  #为前端的循环，创建循环范围
-    html_list_pre = ''
-    html_list_next = ''
-
-    previouspage=0  #用于取当前页的前一页
-    if nowpage>1:
-        previouspage = nowpage-1
-    if previouspage !=0:
-        html_list_pre = '<li><a href="/publisherlist/?page={}" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>'.format(previouspage)
-
-    starnum = (nowpage - 1) * perpage      #用于获得切片取数据的开始值
-    endnum = nowpage * perpage   ##用于获得切片取数据的结束值
-    nextpage = 0
-    if nowpage < lastpage:
-        nextpage = nowpage+1
-    if nextpage != 0:
-        html_list_next = '<li><a href="/publisherlist/?page={}" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>'.format(nextpage)
-    res = models.publishinfo.objects.all()[starnum:endnum]   # 用切片取数据
-    # 分页部分结束
-    return render(request, 'publisherlist.html', {'publisherlist': res, 'totalpage': totalpage,'lastpage':lastpage,'previouspage':previouspage,'nextpage':nextpage,'prepvious':html_list_pre,'nextpage':html_list_next,'nowpage':nowpage})
+    from utils.pagination import Pagination
+    PaginationObj = Pagination(models.publishinfo.objects.all().count(),request.GET.get('page',1),10,10)
+    alldata = models.publishinfo.objects.all()[PaginationObj.startnum:PaginationObj.endnum]
+    return render(request,'publisherlist.html',
+                  {
+                      'publisherlist': alldata,
+                      'pagerange':PaginationObj.pagerange,
+                      'lastpage':PaginationObj.lastpage,
+                      'currentpage':PaginationObj.pagecurrent,
+                      'previouspage':PaginationObj.previous,
+                      'previousswitch':PaginationObj.previous_switch,
+                      'nextpage':PaginationObj.next,
+                      'nextpageswitch':PaginationObj.next_switch
+                  })
 
 
 # 单表操作添加数据 # 用方法直接执行浏览器的返回操作，叫做FBV = function build view
