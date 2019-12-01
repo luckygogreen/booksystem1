@@ -2,7 +2,6 @@ from django.shortcuts import render, HttpResponse, redirect
 from bookAPP import models
 from django.urls import reverse
 
-
 # Create your views here.
 # 测试页面调用的方法
 def test(request):
@@ -22,25 +21,56 @@ def trytest(request):
 def testargs(request, number):
     print(number)
     return HttpResponse('url反向链接视图传参数成功')
+def check_login(func):
+    def inner(func):
+        pass
+#signin用户登录
+def signin(request):
+    if request.method == 'GET':
+        next_url = request.GET.get('next')
+        if ~next_url:
+            next_url = '/publisherlist/'
+        if request.get_signed_cookie('islogin',default='0',salt='66666666') == '1':
+            print('003')
+            return redirect(next_url)
+        else:
+            return render(request, 'signin.html')
+    if request.method == 'POST':
+        print(request.POST.get('uname'), request.POST.get('upassword'))
+        if request.POST.get('uname') == 'kevin' and request.POST.get('upassword') =='888':
+            print('001')
+            red =  redirect('publisherlist')
+            red.set_signed_cookie('islogin','1',salt='66666666',max_age=10)
+            return red
+            print('002')
+        else:
+            return render(request,'signin.html')
 
+def logout(request):
+    rs = redirect('/signin/')
+    rs.delete_cookie('islogin')
+    return rs
 
 # 单表操作读取数据
 def publisherlist(request):
-    from utils.pagination import Pagination #导入自定义的工具包
-    PaginationObj = Pagination(models.publishinfo.objects.all().count(),request.GET.get('page',1),20,5) #实例化工具包的对象
-    alldata = models.publishinfo.objects.all()[PaginationObj.startnum:PaginationObj.endnum]
-    return render(request,'publisherlist.html',
-                  {
-                      'publisherlist': alldata,
-                      'pagerange':PaginationObj.pagerange,
-                      'lastpage':PaginationObj.lastpage,
-                      'currentpage':PaginationObj.pagecurrent,
-                      'previouspage':PaginationObj.previous,
-                      'previousswitch':PaginationObj.previous_switch,
-                      'nextpage':PaginationObj.next,
-                      'nextpageswitch':PaginationObj.next_switch
-                  })
-
+    if request.get_signed_cookie('islogin',default='0',salt='66666666') == '1':
+        from utils.pagination import Pagination #导入自定义的工具包
+        PaginationObj = Pagination(models.publishinfo.objects.all().count(),request.GET.get('page',1),10,15) #实例化工具包的对象
+        alldata = models.publishinfo.objects.all()[PaginationObj.startnum:PaginationObj.endnum]
+        return render(request,'publisherlist.html',
+                      {
+                          'publisherlist': alldata,
+                          'pagerange':PaginationObj.pagerange,
+                          'lastpage':PaginationObj.lastpage,
+                          'currentpage':PaginationObj.pagecurrent,
+                          'previouspage':PaginationObj.previous,
+                          'previousswitch':PaginationObj.previous_switch,
+                          'nextpage':PaginationObj.next,
+                          'nextpageswitch':PaginationObj.next_switch
+                      })
+    else:
+        # return redirect(reverse('sign',args=('?next=',)))
+        return redirect('/signin/?next={}'.format(request.path_info))
 
 # 单表操作添加数据 # 用方法直接执行浏览器的返回操作，叫做FBV = function build view
 def addpublisher(request):
@@ -211,3 +241,23 @@ def delete(request, table_name, delete_id):  # 接受浏览器url传过来的符
     else:
         return HttpResponse('没有要删除的表')
     return HttpResponse('table_name is {},delete_id is {}'.format(table_name, delete_id))
+
+#signin用户登录
+
+def signin(request):
+    if request.method == 'GET':
+        if request.get_signed_cookie('islogin',default='0',salt='66666666') == '1':
+            print('003')
+            return redirect('/publisherlist/')
+        else:
+            return render(request, 'signin.html')
+    if request.method == 'POST':
+        print(request.POST.get('uname'), request.POST.get('upassword'))
+        if request.POST.get('uname') == 'kevin' and request.POST.get('upassword') =='888':
+            print('001')
+            red =  redirect('/publisherlist/')
+            red.set_signed_cookie('islogin',1,salt='66666666')
+            return red
+            print('002')
+        else:
+            return render(request,'signin.html')

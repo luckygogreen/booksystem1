@@ -16,7 +16,7 @@ class bookinfo(models.Model):
     binventory = models.IntegerField(default=100)
     bsalesvolume = models.IntegerField(default=0)
     btype = models.CharField(max_length=32,default='教育')
-    bpublishdata = models.DateField(default=datetime.date.today())
+    bpublishdata = models.DateField(default='2019-06-16')
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE)
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_query_name='xxoo')

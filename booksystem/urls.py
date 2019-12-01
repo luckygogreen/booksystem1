@@ -87,6 +87,8 @@ urlpatterns = [
 
     #路由器参数反射函数，类和变量
     url(r'^delete/([a-zA-Z]+)/(\d+)/$',views.delete),
-    url(r'^faq/$',appveiws.faq)
+    url(r'^faq/$',appveiws.faq),
 
+    url(r'^signin/$',views.signin,name='sign'),
+    url(r'^logout/$',views.logout,name='logout')
 ]

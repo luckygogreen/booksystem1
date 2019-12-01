@@ -23,7 +23,8 @@
     <!-- jQuery -->
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <!-- //jQuery -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet'
+          type='text/css'/>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <!-- lined-icons -->
     <link rel="stylesheet" href="{% static 'css/icon-font.min.css' %}" type='text/css'/>
@@ -57,7 +58,8 @@
                     <span>List of publishers</span>
                     <div class="clearfix"></div>
                 </a></li>
-                <li {% block addpublisher_active %}{% endblock %}><a href="/addpublisher/"><i class="fa fa-pencil-square-o"></i> <span>Add publishers</span>
+                <li {% block addpublisher_active %}{% endblock %}><a href="/addpublisher/"><i
+                        class="fa fa-pencil-square-o"></i> <span>Add publishers</span>
                     <div class="clearfix"></div>
                 </a></li>
                 <li {% block bookslist_active %}{% endblock %}><a href="/bookslist/"><i class="fa fa-copy"></i> <span>List of Books</span>
@@ -66,13 +68,23 @@
                 <li {% block addbook_active %}{% endblock %}><a href="/addbook/"><i class="fa fa-book"></i> <span>Add Books</span>
                     <div class="clearfix"></div>
                 </a></li>
-                <li {% block authorlist_active %}{% endblock %}><a href="/authorslist/"><i class="fa fa-group"></i> <span>List of Authors</span>
+                <li {% block authorlist_active %}{% endblock %}><a href="/authorslist/"><i class="fa fa-group"></i>
+                    <span>List of Authors</span>
                     <div class="clearfix"></div>
                 </a></li>
                 <li {% block addauthor_active %}{% endblock %}><a href="/addauthor/"><i class="fa fa-user"></i> <span>Add Authors</span>
                     <div class="clearfix"></div>
                 </a></li>
-                <li {% block trytest_active %}{% endblock %}><a href="{% url 'tryreverse' %}"><i class="fa fa-anchor"></i> <span>Try Reverse</span>
+                <li {% block trytest_active %}{% endblock %}><a href="{% url 'tryreverse' %}"><i
+                        class="fa fa-anchor"></i> <span>Try Reverse</span>
+                    <div class="clearfix"></div>
+                </a></li>
+                <li {% block signin_active %}{% endblock %}><a href="/signin/"><i class="fa fa-apple"></i>
+                    <span>SignIn Test</span>
+                    <div class="clearfix"></div>
+                </a></li>
+                <li><a href="{% url 'logout' %}"><i class="fa fa-amazon"></i>
+                    <span>logout Test</span>
                     <div class="clearfix"></div>
                 </a></li>
 
