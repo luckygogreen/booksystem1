@@ -284,9 +284,9 @@ if __name__ == '__main__':
 
     # 批量插入，创建数据的方法 bulk_create
     # print('测试输出1001:',models.publishinfo(pname='加拿大第2出版社').pname)
-    objs = [models.publishinfo(pname='加拿大第{}出版社'.format(i+30)) for i in range(31,330)] # models.publishinfo(pname='加拿大第{}出版社'.format(i)) 这里知识把后面的值赋给pname字段，并没i而又保存，且用models.publishinfo(pname='')这种方法并不能去数据出来。
-    print(objs)
-    models.publishinfo.objects.bulk_create(objs,10) # 把刚才保存objs 插入到数据库中，每10条运行一次Sql语句
+    # objs = [models.publishinfo(pname='加拿大第{}出版社'.format(i+30)) for i in range(31,330)] # models.publishinfo(pname='加拿大第{}出版社'.format(i)) 这里知识把后面的值赋给pname字段，并没i而又保存，且用models.publishinfo(pname='')这种方法并不能去数据出来。
+    # print(objs)
+    # models.publishinfo.objects.bulk_create(objs,10) # 把刚才保存objs 插入到数据库中，每10条运行一次Sql语句
 
     # 接受request的数据 如果GET没有参数，可以给GET默认设置一个默认值，分页时候很有用
     # 从post中取得数据，如果不存在则默认值为1 

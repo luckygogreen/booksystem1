@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+#header CSS,JS 补充文件
+{% block extends_header %}
+    {% load static %}
+    <script type="text/javascript" src=" {% static 'js/jquery.basictable.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/basictable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-style.css' %}">
+    <script src="{% static 'js/table_js.js' %}"></script>
+{% endblock %}
+#设置面包屑导航的内容
+{% block navgation_bar %}
+    <a href="/authorslist/">List of Authors</a>
+{% endblock %}
+#设置被选中页面标签高亮
+{% block authorlist_active %}
+    class="active"
+{% endblock %}
+{% block pageinfomation %}
+    <div class="w3l-table-info">
+        <table id="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Author ID</th>
+                <th>Author</th>
+                <th>Books</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for author in authorlist %}
+                <tr>
+                    <td data-th="Name"><span class="bt-content"></span>{{ forloop.counter }}</td>
+                    <td data-th="Age"><span class="bt-content">{{ author.aid }}</span></td>
+                    <td data-th="Gender"><span class="bt-content">{{ author.aname }}</span></td>
+                    <td data-th="Gender"><span class="bt-content">
+                        {% for book in author.author_book_publish.all %}
+                            <span><<</span>{{ book }}<span>>></span>
+                        {% endfor %}
+                    </span></td>
+                    <td data-th="Height"><span class="bt-content"><a href="/editauthor/?aid={{ author.aid }}">Edit</a></span></td>
+                    <td data-th="Height"><span class="bt-content"><a href="/deleteauthor/?aid={{ author.aid }}">Delete</a></span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

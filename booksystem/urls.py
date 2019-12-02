@@ -90,5 +90,8 @@ urlpatterns = [
     url(r'^faq/$',appveiws.faq),
 
     url(r'^signin/$',views.signin,name='sign'),
-    url(r'^logout/$',views.logout,name='logout')
+    url(r'^logout/$',views.logout,name='logout'),
+
+
+
 ]
