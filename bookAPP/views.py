@@ -346,7 +346,8 @@ def showimg(request):
     imgurl = "https://cms.qz.com/wp-content/uploads/2018/08/us-dollars-banknotes.jpg?quality=75&strip=all&w=410&h=231"
     return HttpResponse(imgurl)
 def ajaxpost(request):
-    num1 = request.GET.get('b1')
-    num2 = request.GET.get('b2')
+    print(request.POST)
+    num1 = request.POST.get('b1')
+    num2 = request.POST.get('b2')
     rs = int(num1) + int(num2)
     return HttpResponse(rs)

@@ -24,7 +24,6 @@
             data: {"b1": $("#b1").val(), "b2": $("#b2").val()},
             success: function (data) {
                 $("#b3").val(data);
-                alert(data);
             }
         })
     })
@@ -33,9 +32,10 @@
         $.ajax({
             url: "/ajaxpost/",
             type: "POST",
-            data: {"b1": $("#b1").val(), "b2": $("#b2").val(), "csrftoken":$("[name='csrfmiddlewaretoken']")},
+            //csrfmiddlewaretoken 这个name是固定的，不可以更改，否则提交到Views的方法是运行不出来的
+            data: {"b1": $("#b1").val(), "b2": $("#b2").val(), "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()},
             success: function (data) {
-                $("#b3").val(data)
+                $("#b3").val(data);
             }
         })
     })
