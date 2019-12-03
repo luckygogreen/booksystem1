@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
 from bookAPP import models
 from django.urls import reverse
@@ -330,3 +331,22 @@ def delete(request, table_name, delete_id):  # 接受浏览器url传过来的符
         return HttpResponse('没有要删除的表')
     return HttpResponse('table_name is {},delete_id is {}'.format(table_name, delete_id))
 
+
+#ajax 练习实例
+def ajaxdemo(request):
+    return render(request,'ajaxdemo.html')
+def ajaxget(request):
+    print(request.GET)
+    num1 = request.GET.get('b1')
+    num2 = request.GET.get('b2')
+    rs = int(num1)+int(num2)
+    # return JsonResponse(rs,safe=False)
+    return HttpResponse(rs)
+def showimg(request):
+    imgurl = "https://cms.qz.com/wp-content/uploads/2018/08/us-dollars-banknotes.jpg?quality=75&strip=all&w=410&h=231"
+    return HttpResponse(imgurl)
+def ajaxpost(request):
+    num1 = request.GET.get('b1')
+    num2 = request.GET.get('b2')
+    rs = int(num1) + int(num2)
+    return HttpResponse(rs)

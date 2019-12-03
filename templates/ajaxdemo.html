@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% csrf_token %}
+<input name="box1" id="b1" type="text">
+<input name="box2" id="b2" type="text">
+<input name="box3" id="b3" type="text">
+<input type="button" name="sumbitajaxget" value="AJAX get" id="s1">
+<input type="button" name="sumbitajaxpost" value="AJAX post" id="s3">
+<input type="button" name="showimgbutton" value="Show img" id="s2">
+{% load static %}
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+{#   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>    #}
+<script>
+    //用 Get方法Ajax
+    $("#s1").on("click", function () {
+        $.ajax({
+            url: "/ajaxget/",
+            type: "GET",
+            data: {"b1": $("#b1").val(), "b2": $("#b2").val()},
+            success: function (data) {
+                $("#b3").val(data);
+                alert(data);
+            }
+        })
+    })
+    //用post方法AJax
+    $("#s3").on("click", function () {
+        $.ajax({
+            url: "/ajaxpost/",
+            type: "POST",
+            data: {"b1": $("#b1").val(), "b2": $("#b2").val(), "csrftoken":$("[name='csrfmiddlewaretoken']")},
+            success: function (data) {
+                $("#b3").val(data)
+            }
+        })
+    })
+    $("#s2").on("click", function () {
+        $.ajax({
+            url: "/showimg/",
+            type: "get",
+            success: function (imgurl) {
+                imgval = document.createElement("img")
+                imgval.src = imgurl
+                $("#s2").after(imgval)
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

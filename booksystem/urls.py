@@ -92,6 +92,12 @@ urlpatterns = [
     url(r'^signin/$',views.signin,name='sign'),
     url(r'^logout/$',views.logout,name='logout'),
 
+    #AJAX练习
+    url(r'^ajaxdemo/$',views.ajaxdemo),
+    url(r'^ajaxget/$',views.ajaxget),
+    url(r'^showimg/$',views.showimg),
+    url(r'^ajaxpost/$',views.ajaxpost),
+
 
 
 ]
