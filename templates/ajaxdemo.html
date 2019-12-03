@@ -5,7 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-{% csrf_token %}
 <input name="box1" id="b1" type="text">
 <input name="box2" id="b2" type="text">
 <input name="box3" id="b3" type="text">
@@ -13,44 +12,11 @@
 <input type="button" name="sumbitajaxpost" value="AJAX post" id="s3">
 <input type="button" name="showimgbutton" value="Show img" id="s2">
 {% load static %}
-<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
-{#   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>    #}
-<script>
-    //用 Get方法Ajax
-    $("#s1").on("click", function () {
-        $.ajax({
-            url: "/ajaxget/",
-            type: "GET",
-            data: {"b1": $("#b1").val(), "b2": $("#b2").val()},
-            success: function (data) {
-                $("#b3").val(data);
-            }
-        })
-    })
-    //用post方法AJax
-    $("#s3").on("click", function () {
-        $.ajax({
-            url: "/ajaxpost/",
-            type: "POST",
-            //csrfmiddlewaretoken 这个name是固定的，不可以更改，否则提交到Views的方法是运行不出来的
-            data: {"b1": $("#b1").val(), "b2": $("#b2").val(), "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()},
-            success: function (data) {
-                $("#b3").val(data);
-            }
-        })
-    })
-    $("#s2").on("click", function () {
-        $.ajax({
-            url: "/showimg/",
-            type: "get",
-            success: function (imgurl) {
-                imgval = document.createElement("img")
-                imgval.src = imgurl
-                $("#s2").after(imgval)
-            }
-        })
-    })
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script><!--最先要添加的JS文件-->
+<script src="{% static 'js/jquery.cookie.js' %}"></script><!--CSRF——Token方法-->
+<script src="{% static 'js/setupajax.js' %}"></script><!--csrf_Token的调用方法-->
+<script src="{% static 'js/ajaxfunc.js' %}"></script> <!--点击按钮的所有操作方法-->
 
-</script>
+{#   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>    #}
 </body>
 </html>

@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from bookAPP import models
 from django.urls import reverse
 from functools import wraps
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 
@@ -340,14 +341,77 @@ def ajaxget(request):
     num1 = request.GET.get('b1')
     num2 = request.GET.get('b2')
     rs = int(num1)+int(num2)
-    # return JsonResponse(rs,safe=False)
+    # return JsonResponse(rs,safe=False)  #和下面的Http返回一样的效果
     return HttpResponse(rs)
 def showimg(request):
     imgurl = "https://cms.qz.com/wp-content/uploads/2018/08/us-dollars-banknotes.jpg?quality=75&strip=all&w=410&h=231"
     return HttpResponse(imgurl)
+# @ensure_csrf_cookie  #如果用
+# 如果使用从cookie中取csrftoken的方式，需要确保cookie存在csrftoken值。
+# 如果你的视图渲染的HTML文件中没有包含 {% csrf_token %}，Django可能不会设置CSRFtoken的cookie。
+# 这个时候需要使用ensure_csrf_cookie()装饰器强制设置Cookie。
 def ajaxpost(request):
     print(request.POST)
     num1 = request.POST.get('b1')
     num2 = request.POST.get('b2')
     rs = int(num1) + int(num2)
     return HttpResponse(rs)
+
+#最简单的ajax ,Post ,CSRF_tokevin 使用方法
+# 第一步：下载jquery.cookie.js 插件 jQuery-3.4.1.js 最新文件 放在Django的静态文件下，并且在要用的HTML文件中导入
+# 第二步：编辑一个设置AJAX的添加CSRF_tokevin的方法JS文件，例如ajaxsetup.js里面输入代码
+# function getCookie(name) {
+#     var cookieValue = null;
+#     if (document.cookie && document.cookie !== "") {
+#         var cookies = document.cookie.split(';');
+#         for (var i = 0; i < cookies.length; i++) {
+#             var cookie = jQuery.trim(cookies[i]);
+#             // Does this cookie string begin with the name we want?
+#             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+#                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+#                 break;
+#             }
+#         }
+#     }
+#     return cookieValue;
+# }
+# var csrftoken = getCookie('csrftoken');
+# function csrfSafeMethod(method) {
+#   // these HTTP methods do not require CSRF protection
+#   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+# }
+# $.ajaxSetup({
+#   beforeSend: function (xhr, settings) {
+#     if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+#       xhr.setRequestHeader("X-CSRFToken", csrftoken);
+#     }
+#   }
+# });
+# 第三步，前HTML页面调用jQuery-3.4.1.js，jquery.cookie.js，还有你最后写的ajaxsetup.js，先后调用顺序不能错
+# {% load static %}
+# <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+# <script src="{% static 'js/jquery.cookie.js' %}"></script>
+# <script src="{% static 'js/setupajax.js' %}"></script>
+# 第四步，前段代码，要调用按钮的ajax方法
+# //用post方法AJax
+#     $("#s3").on("click", function () {
+#         $.ajax({
+#             url: "/ajaxpost/",
+#             type: "POST",
+#             //csrfmiddlewaretoken 这个name是固定的，不可以更改，否则提交到Views的方法是运行不出来的
+#            // data: {"b1": $("#b1").val(), "b2": $("#b2").val(), "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()},
+#             data: {"b1": $("#b1").val(), "b2": $("#b2").val()},
+#             success: function (data) {
+#                 $("#b3").val(data);
+#             }
+#         })
+#     })
+# 第五步，设置Url.py 路径
+# url(r'^ajaxpost/$',views.ajaxpost),
+# 第六步，编辑Views对应的ajaxpost方法
+# def ajaxpost(request):
+#     print(request.POST)
+#     num1 = request.POST.get('b1')
+#     num2 = request.POST.get('b2')
+#     rs = int(num1) + int(num2)
+#     return HttpResponse(rs)
