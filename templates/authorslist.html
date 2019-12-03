@@ -5,6 +5,7 @@
     <script type="text/javascript" src=" {% static 'js/jquery.basictable.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/basictable.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/table-style.css' %}">
+
     <script src="{% static 'js/table_js.js' %}"></script>
 {% endblock %}
 #设置面包屑导航的内容
@@ -26,11 +27,12 @@
                 <th>Books</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Ajax+sweetalert删除</th>
             </tr>
             </thead>
             <tbody>
             {% for author in authorlist %}
-                <tr>
+                <tr class="conrtrlid">
                     <td data-th="Name"><span class="bt-content"></span>{{ forloop.counter }}</td>
                     <td data-th="Age"><span class="bt-content">{{ author.aid }}</span></td>
                     <td data-th="Gender"><span class="bt-content">{{ author.aname }}</span></td>
@@ -41,6 +43,7 @@
                     </span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/editauthor/?aid={{ author.aid }}">Edit</a></span></td>
                     <td data-th="Height"><span class="bt-content"><a href="/deleteauthor/?aid={{ author.aid }}">Delete</a></span></td>
+                    <td data-th="Height"><button class="btn btn-danger del"><i class="fa fa-trash">删除</i></button></td>
                 </tr>
             {% endfor %}
             </tbody>

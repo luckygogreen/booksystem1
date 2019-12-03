@@ -136,6 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
+
 APPEND_SLASH=True #默认是Ture，表示，浏览器地址栏如果末尾没有/的话，会自动加上一个斜杠，如果为False的话，则不会自动加上/
 
 

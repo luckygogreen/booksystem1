@@ -113,7 +113,7 @@ def signin(request):
             print('001,用户名密码正确')
             request.session['islogin'] = '1'  #设置Session值
             request.session['name'] = request.POST.get('uname') #创建一个键值对关系的数据，存入给Session
-            request.session.set_expiry(10)  #设置Session 失效时间
+            request.session.set_expiry(1000)  #设置Session 失效时间
             # # 设置会话Session和Cookie的超时时间
             # request.session.set_expiry(value)
             # *如果value是个整数，session会在些秒数后失效。
@@ -332,7 +332,7 @@ def delete(request, table_name, delete_id):  # 接受浏览器url传过来的符
         return HttpResponse('没有要删除的表')
     return HttpResponse('table_name is {},delete_id is {}'.format(table_name, delete_id))
 
-
+#Command+Shift+减号，=收起所有方法
 #ajax 练习实例
 def ajaxdemo(request):
     return render(request,'ajaxdemo.html')
@@ -356,7 +356,6 @@ def ajaxpost(request):
     num2 = request.POST.get('b2')
     rs = int(num1) + int(num2)
     return HttpResponse(rs)
-
 #最简单的ajax ,Post ,CSRF_tokevin 使用方法
 # 第一步：下载jquery.cookie.js 插件 jQuery-3.4.1.js 最新文件 放在Django的静态文件下，并且在要用的HTML文件中导入
 # 第二步：编辑一个设置AJAX的添加CSRF_tokevin的方法JS文件，例如ajaxsetup.js里面输入代码
@@ -415,3 +414,9 @@ def ajaxpost(request):
 #     num2 = request.POST.get('b2')
 #     rs = int(num1) + int(num2)
 #     return HttpResponse(rs)
+
+# ajax + sweetaleat 实现异步提交删除数据
+def ajaxsweetaleartdelete(request):
+    print(request.POST.get('delid'))
+   # models.authorinfo.objects.filter('delid').delete()          #  删除表数据，这里注释掉，不想添加数据，主要演示AJAX的sweetalert属性删除
+    return HttpResponse("数据成功删除")

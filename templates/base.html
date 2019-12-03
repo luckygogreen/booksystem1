@@ -20,8 +20,10 @@
     <link rel="stylesheet" href="{% static 'css/morris.css' %}" type="text/css"/>
     <!-- Graph CSS -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sweetalert.css' %}" rel="stylesheet">
     <!-- jQuery -->
-    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+
+
     <!-- //jQuery -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet'
           type='text/css'/>
@@ -93,10 +95,15 @@
     </div>
     <div class="clearfix"></div>
 </div>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script><!--最先要添加的JS文件-->
+<script src="{% static 'js/jquery.cookie.js' %}"></script><!--CSRF——Token方法-->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/sweetalert.min.js' %}"></script><!--友好弹窗插件方法-->
+<script src="{% static 'js/setupajax.js' %}"></script><!--csrf_Token的调用方法-->
+<script src="{% static 'js/ajaxfunc.js' %}"></script> <!--点击按钮的所有操作方法-->
 <script src="{% static 'js/js2.js' %}"></script>
 <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
 <script src="{% static 'js/scripts.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/raphael-min.js' %}"></script>
 <script src="{% static 'js/morris.js' %}"></script>
 <script src="{% static 'js/js1.js' %}"></script>

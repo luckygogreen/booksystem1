@@ -18,6 +18,8 @@ class bookinfo(models.Model):
     bprice = models.DecimalField(max_digits=6,decimal_places=2,default=16.99) # max_digits=6,decimal_places=2这两个参数是必填项
     binventory = models.IntegerField(default=100)
     bsalesvolume = models.IntegerField(default=0)
+    btype =  models.CharField(default='教育', max_length=32)
+    bpublishdata = models.DateField(default='2019-06-16')
     book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE)
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_name='books')
     #book_pubish = models.ForeignKey(to=publishinfo,on_delete=models.CASCADE,related_query_name='xxoo')

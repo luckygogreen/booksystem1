@@ -97,6 +97,7 @@ urlpatterns = [
     url(r'^ajaxget/$',views.ajaxget),
     url(r'^showimg/$',views.showimg),
     url(r'^ajaxpost/$',views.ajaxpost),
+    url(r'^ajaxsweetaleartdelete/$',views.ajaxsweetaleartdelete),
 
 
 
