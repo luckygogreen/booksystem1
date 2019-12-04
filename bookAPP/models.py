@@ -6,7 +6,9 @@ class publishinfo(models.Model):
     pname = models.CharField(max_length=32, null=False)
     def __str__(self):
         return self.pname
-    # class Meta:
+    class Meta:
+        # verbose_name = '出版社'  #复数形式
+        verbose_name_plural = '出版社表 publishinfo'  #单数形式
     #     db_table = 'publisher'  创建表的时候，表明自定义，不用系统自动生产的函数
 
 class bookinfo(models.Model):

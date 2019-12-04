@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from bookAPP import models
 from django.urls import reverse
 from functools import wraps
+import json
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 
@@ -137,6 +138,25 @@ def logout(request):
     request.session.flush()  #清楚Session值    删除Session数据和Cookies值
     print('011,Session值已被清楚')
     return redirect('/signin/')
+
+def signup(request):
+    return render(request,'signup.html')
+
+# Django from 自带表单创建和操作
+from django import forms
+class DjangoFrom(forms.Form):
+    uname = forms.CharField(max_length=32,label='用户名',min_length=6,error_messages={"min_length":"用户名不能小于6位"})
+    upassword = forms.CharField(label='密码',min_length=6,error_messages={"min_length":"密码不能小于6位"})
+
+
+def signupdjango(request):
+    from_obj = DjangoFrom()
+
+    if request.method == 'POST':
+        from_obj = DjangoFrom(request.POST)
+        if from_obj.is_valid():
+            pass
+    return render(request,'signupdjango.html',{'from_obj':from_obj})
 
 # 单表操作读取数据
 @check_login
@@ -420,3 +440,25 @@ def ajaxsweetaleartdelete(request):
     print(request.POST.get('delid'))
    # models.authorinfo.objects.filter('delid').delete()          #  删除表数据，这里注释掉，不想添加数据，主要演示AJAX的sweetalert属性删除
     return HttpResponse("数据成功删除")
+
+# ajax知识回顾和补充
+def ajaxtest(request):
+    if request.method == "POST":
+        print(request.POST.get("name"))
+        print(request.POST.get("age"))
+        print(request.POST.get("status"))
+        print(request.POST.get("tags"))
+        ret1 = request.POST.get("tags")
+        ret = {"status":0,"name":"Kevin","age":18}
+        ret = json.dumps(ret)
+        return HttpResponse(ret)
+
+    return render(request,'ajaxtest.html')
+
+def ajaxblur(request):
+    text1 = request.POST.get("text1")
+    print(text1)
+    if text1 != 'kevin':
+        return HttpResponse("0")
+    else:
+        return HttpResponse("1")

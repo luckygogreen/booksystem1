@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django From</title>
+</head>
+<body>
+<form action="/signupdjango/" method="post" novalidate>{% csrf_token %}
+    {{ from_obj.as_p }}
+    <p><input type="submit" name="djsubmit"></p>
+</form>
+</body>
+</html>

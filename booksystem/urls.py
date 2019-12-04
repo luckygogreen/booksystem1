@@ -68,7 +68,7 @@ urlpatterns = [
 
     #路由器反向链接实例
     url('trytest', trytest,name='tryreverse'),  # 定义一个链接，用于测试URL利用视图反向链接的操作
-    url('test',test,name='gotest'),  #给路径命名一个别名，在浏览器调用别名即可获得当前的路径 HTML 调用方法href={% url 别名 %}
+    url(r'^test/$',test,name='gotest'),  #给路径命名一个别名，在浏览器调用别名即可获得当前的路径 HTML 调用方法href={% url 别名 %}
     url(r'^gogogo/(?P<number>[0-9]{2,4})/$',testargs,name='go'), #用于演示URL反向链接，在视图中传参数的用法 传参数必须要用到reverse反向
 
     #路由器上传文件
@@ -90,6 +90,8 @@ urlpatterns = [
     url(r'^faq/$',appveiws.faq),
 
     url(r'^signin/$',views.signin,name='sign'),
+    url(r'^signup/$',views.signup),
+    url(r'^signupdjango/$',views.signupdjango),
     url(r'^logout/$',views.logout,name='logout'),
 
     #AJAX练习
@@ -98,6 +100,8 @@ urlpatterns = [
     url(r'^showimg/$',views.showimg),
     url(r'^ajaxpost/$',views.ajaxpost),
     url(r'^ajaxsweetaleartdelete/$',views.ajaxsweetaleartdelete),
+    url(r'^ajaxtest/$',views.ajaxtest),
+    url(r'^ajaxblur/$',views.ajaxblur),
 
 
 

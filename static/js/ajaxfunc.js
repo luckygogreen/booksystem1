@@ -105,3 +105,50 @@ $(".del").on("click", function () {
         })
 
 })
+
+//ajaxtest页面点我功能
+$("#button1").click(function () {
+        var text = [[1,2,3,5],[6,7,8,9]]
+        var jasontext = JSON.stringify(text)
+        $.ajax({
+                url: "/ajaxtest/",
+                type: "post",
+                dataType:"json",
+              //  traditional:true,
+                data:{"name":"kevin","age":18,"status":1,"tags":jasontext},
+                //data:{"name":"kevin","age":18,"status":1,"tags":[[1,2,3,5],[6,7,8,9]]},
+                success: function (data) {
+                    alert(data)
+                    if (data.status == 0){
+                        alert(data)
+                    }else {
+                        alert("数据不存在")
+                    }
+
+                }
+        })
+
+})
+//验证用户名是否存在
+//$("#text1").blur(function () {
+//$("#text1").on("change input",function () {  //如果用input change 方法这个事件可以单独用，也可以一起用，只有这样写可以通过Chrome测试，直接写 input(function ()，Chrome运行不了
+$("#text1").on("input",function () {
+   // alert("good");
+        $.ajax({
+                url: "/ajaxblur/",
+                type: "POST",
+                data: {"text1": $("#text1").val()},
+                success: function (data) {
+                   // alert(data)
+                    if (data == "0"){
+                        $("#lable1").text("用户名可以使用")
+                        $("#lable1").css("color","black")
+                       // alert(data)
+                    }else {
+                        $("#lable1").text("用户名已经存在,请使用其他用户名");
+                        $("#lable1").css("color","red")
+                        //alert(data)
+                    }
+                }
+            })
+})

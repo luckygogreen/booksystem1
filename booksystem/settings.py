@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.md1.MD1',
 ]
 
 ROOT_URLCONF = 'booksystem.urls'
@@ -85,6 +86,8 @@ WSGI_APPLICATION = 'booksystem.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+#database 用户名密码：root = 88888888
+#admin 页面用户密码：root = 88888888
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
